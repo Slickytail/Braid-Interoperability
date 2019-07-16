@@ -34,7 +34,7 @@ statusSpan.innerHTML = "Not Connected";
 textarea.style.backgroundColor = "gray";
 
 // Set up the socket
-const socket_url = 'ws://invisible.college/interoperability'
+const socket_url = 'ws://invisible.college:1200/interoperability'
 const socket = new c_funcs.Socket(socket_url);
 
 // Update DOM with socket status
