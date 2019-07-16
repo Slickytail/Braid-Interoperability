@@ -1,0 +1,37 @@
+## One client
+
+# Client connects
+SERVER: {"a":"init", "protocol":1, "id":"7bf539f6776bb460360a4bd55a69a206", "type":"http://sharejs.org/types/JSONv0"}
+CLIENT: {"a":"s", "c":"interoperability", "d":"val"}
+SERVER: {"a":"s", "c":"interoperability", "d":"val", "data":{"v":1, "data":"", "type":"http://sharejs.org/types/textv1"}}
+
+# Making an edit
+CLIENT: {"a":"op", "c":"interoperability", "d":"val", "v":1, "seq":1, "op":["x"]}
+SERVER: {"a":"op", "c":"interoperability", "d":"val", "v":1, "seq":1, "src":"7bf539f6776bb460360a4bd55a69a206"}
+
+## Two Clients
+
+# Client 1 connects
+S->C1: {"a":"init", "protocol":1, "id":"b5156bb0e27bb82e8a752f9ae424f6fa", "type":"http://sharejs.org/types/JSONv0"}
+C1->S: {"a":"s", "c":"interoperability", "d":"val"}
+S->C1: {"a":"s", "c":"interoperability", "d":"val", "data":{"v":1, "data":"", "type":"http://sharejs.org/types/textv1"}}
+
+# Client 2 connects
+S->C2: {"a":"init", "protocol":1, "id":"34d861902ff85cd579de04436c798b10", "type":"http://sharejs.org/types/JSONv0"}
+C2->S: {"a":"s", "c":"interoperability", "d":"val"}
+S->C2: {"a":"s", "c":"interoperability", "d":"val", "data":{"v":1, "data":"", "type":"http://sharejs.org/types/textv1"}}
+
+# Making an edit,  from client 1
+C1->S: {"a":"op", "c":"interoperability", "d":"val", "v":1, "seq":1, "op":["x"]}
+S->C1: {"a":"op", "c":"interoperability", "d":"val", "v":1, "seq":1, "src":"b5156bb0e27bb82e8a752f9ae424f6fa"}
+S->C2: {"a":"op", "c":"interoperability", "d":"val", "v":1, "seq":1, "op":["x"], "src":"b5156bb0e27bb82e8a752f9ae424f6fa"}
+
+# Another edit,  from client 2
+C2->S: {"a":"op", "c":"interoperability", "d":"val", "v":2, "seq":1, "op":[1, "y"]}
+S->C2: {"a":"op", "c":"interoperability", "d":"val", "v":2, "seq":1, "src":"34d861902ff85cd579de04436c798b10"}
+S->C1: {"a":"op", "c":"interoperability", "d":"val", "v":2, "seq":1, "op":[1, "y"], "src":"34d861902ff85cd579de04436c798b10"}
+
+# Another edit,  from client 1
+C1->S: {"a":"op", "c":"interoperability", "d":"val", "v":3, "seq":2, "op":[1, "b"]}
+S->C1: {"a":"op", "c":"interoperability", "d":"val", "v":3, "seq":2, "src":"b5156bb0e27bb82e8a752f9ae424f6fa"}
+S->C2: {"a":"op", "c":"interoperability", "d":"val", "v":3, "seq":2, "op":[1, "b"], "src":"b5156bb0e27bb82e8a752f9ae424f6fa"}

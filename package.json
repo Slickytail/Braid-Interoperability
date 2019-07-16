@@ -1,0 +1,28 @@
+{
+  "name": "Universal-Protocol",
+  "version": "1.0.0",
+  "description": "Universal Protocol Tester",
+  "main": "server.js",
+  "scripts": {
+    "build": "mkdir -p static/dist/ && ./node_modules/.bin/browserify client.js -o static/dist/bundle.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@teamwork/websocket-json-stream": "^2.0.0",
+    "automerge": "^0.10.1",
+    "clone": "^2.1.2",
+    "express": "^4.17.1",
+    "ot-text": "^1.0.2",
+    "ottypes": "^1.0.3",
+    "sharedb": "^1.0.0-beta.23",
+    "ws": "^7.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Slickytail/Braid-Performance.git"
+  },
+  "devDependencies": {
+    "browserify": "^16.2.3",
+    "eslint": "^6.0.1"
+  }
+}
