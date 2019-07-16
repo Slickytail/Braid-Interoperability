@@ -29,7 +29,6 @@ document.getElementById('alg').innerHTML = c_name
 const textarea = document.querySelector('textarea');
 const statusSpan = document.getElementById('status-span');
 
-
 statusSpan.innerHTML = "Not Connected";
 textarea.style.backgroundColor = "gray";
 
@@ -52,6 +51,14 @@ socket.addEventListener('error', function() {
     statusSpan.innerHTML = "Error"
     textarea.style.backgroundColor = "red";
 });
+
+global.sync = function(s) {
+    textarea.style.borderWidth = "2px";
+    if (s)
+        textarea.style.borderColor = "green";
+    if (!s)
+        textarea.style.borderColor = "yellow";
+}
 
 // Create the client and pass them their socket
 const client = new c_funcs.Client(socket);

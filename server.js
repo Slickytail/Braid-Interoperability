@@ -20,5 +20,5 @@ function startServer() {
   });
 
   server.listen(port)
-  console.log(`Listening on http://localhost${path}:${port}`);
+  console.log(`Listening on http://localhost:${port}${path}:`);
 }
