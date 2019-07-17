@@ -5,29 +5,37 @@ const AutomergeC = require('./lib/client/automerge_client')
 const DiffSync = require('./lib/diffsync')
 // Include util libraries
 const pu = require('./lib/patch')
-const TransparentSocket = require('./lib/client/socket.js');
+const clone = require('clone')
 // Figure out which algorithm we're supposed to use
 const urlParams = new URLSearchParams(window.location.search);
 
 var c_funcs;
 var c_name;
+var switch_alg;
 if (urlParams.has("sharedb")) {
     c_funcs = ShareDBC;
-    c_name = "ShareDB"
+    c_name = "ShareDB";
+    switch_alg = "sync9";
+
 }
 else if (urlParams.has("automerge")) {
     c_funcs = AutomergeC;
-    c_name = "Automerge"
+    c_name = "Automerge";
+    switch_alg = "sync9";
 }
 else {
     c_funcs = Sync9C;
-    c_name = "Sync9"
+    c_name = "Sync9";
+    switch_alg = "sharedb";
 }
-document.getElementById('alg').innerHTML = c_name
+var alg = document.getElementById('alg')
+alg.innerHTML = c_name
+alg.href = location.protocol + '//' + location.host + location.pathname + '?' + switch_alg;
 
 // Set up DOM elements
 const textarea = document.querySelector('textarea');
 const statusSpan = document.getElementById('status-span');
+const console_output = document.getElementById('console');
 
 statusSpan.innerHTML = "Not Connected";
 textarea.style.backgroundColor = "gray";
@@ -35,6 +43,36 @@ textarea.style.backgroundColor = "gray";
 // Set up the socket
 const socket_url = 'ws://invisible.college:1200/interoperability'
 const socket = new c_funcs.Socket(socket_url);
+
+socket.console = function(orig, trans, outgoing) {
+    var orig_text = clone(orig)
+    if (typeof(orig) != "string")
+        orig_text = JSON.stringify(orig, (k, v) => {if (k != "server_text") return v})
+    else if (orig != "(No Original)") {
+        orig_text = JSON.stringify(JSON.parse(orig), (k, v) => {if (k != "server_text") return v})
+    }
+    if (trans) {
+        var trans_text = clone(trans)
+        if (typeof(trans) != "string")
+            trans_text = JSON.stringify(trans)
+    }
+    
+    // Now we know what the original message was, whether we translated it
+    // and whether we're sending or receiving it
+    var msg = document.createElement('li');
+    msg.className = outgoing ? "send" : "receive";
+    var t = orig_text
+    if (trans)
+        t += " ⟶ " + trans_text
+    msg.innerText = t;
+
+    var scroll = console_output.scrollTop - (console_output.scrollHeight - console_output.clientHeight);
+
+    console_output.appendChild(msg)
+
+    if (scroll > -5)
+        console_output.scrollTop = console_output.scrollHeight - console_output.clientHeight;
+}
 
 // Update DOM with socket status
 socket.addEventListener('open', function() {
