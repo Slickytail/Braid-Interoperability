@@ -89,6 +89,10 @@ socket.addEventListener('close', function() {
     textarea.style.borderColor = "black";
 });
 
+window.addEventListener('beforeunload', function(e) {
+    socket.close();
+})
+
 global.sync = function(s) {
     if (s === true) {
         statusSpan.innerHTML = "In sync with server";
