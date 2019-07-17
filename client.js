@@ -39,25 +39,30 @@ const socket = new c_funcs.Socket(socket_url);
 // Update DOM with socket status
 socket.addEventListener('open', function() {
     statusSpan.innerHTML = "Connected";
+    statusSpan.style.color="black";
     textarea.style.backgroundColor = "white";
+    textarea.style.borderColor = "#999"
 })
 
 socket.addEventListener('close', function() {
-    statusSpan.innerHTML = "Closed"
+    statusSpan.innerHTML = "Closed";
+    statusSpan.style.color="black";
     textarea.style.backgroundColor = "gray";
-});
-
-socket.addEventListener('error', function() {
-    statusSpan.innerHTML = "Error"
-    textarea.style.backgroundColor = "red";
+    textarea.style.borderColor = "black";
 });
 
 global.sync = function(s) {
-    textarea.style.borderWidth = "2px";
-    if (s)
+    if (s === true) {
+        statusSpan.innerHTML = "In sync with server";
+        statusSpan.style.color="green";
+        textarea.style.backgroundColor = "hsl(120, 60%, 85%)";
         textarea.style.borderColor = "green";
-    if (!s)
-        textarea.style.borderColor = "yellow";
+    } else if (s === false) {
+        statusSpan.innerHTML = "Out of sync with server"
+        statusSpan.style.color = "red";
+        textarea.style.backgroundColor = "hsl(0, 60%, 85%)";
+        textarea.style.borderColor = "red";
+    }
 }
 
 // Create the client and pass them their socket

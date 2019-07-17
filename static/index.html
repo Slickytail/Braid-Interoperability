@@ -28,9 +28,10 @@
       width: 100%;
       box-sizing: border-box;
       border-radius: 8px;
-      border: 1px solid #999;
+      border: 2px solid #999;
       box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.3);
       resize: vertical;
+      transition: 0.2s background-color ease;
     }
 
     #title {
@@ -69,7 +70,7 @@
     <div id="info">
       <div id="left">
         <p>Algorithm: <span id="alg"></span></p>
-        <p>Connection Status: <span id="status-span"></span></p>
+        <p>Status: <span id="status-span"></span></p>
       </div>
     </div>
     <textarea autofocus rows="10"></textarea>
