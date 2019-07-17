@@ -21,10 +21,12 @@
       display: flex;
       flex-direction: column;
     }
-    p {
+    #info p {
       font-weight: 600;
+      margin-top: 5px;
+      margin-bottom: 2px;
     }
-    p span, p a {
+    #info p span, #info p a {
       font-weight: normal;
     }
 
@@ -63,12 +65,15 @@
       list-style: none;
       align-items: flex-start;
       padding: 5px;
+
+      word-wrap: break-word;
     }
     #console > li {
       font-family: Consolas, monospace;
       color: #444;
       font-size: 12px;
       margin-top: 5px;
+      width: 100%;
     }
     #console > li:first-child {
       margin-top: auto;
