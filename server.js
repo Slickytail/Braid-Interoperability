@@ -4,14 +4,19 @@ const Sync9Server = require('./lib/server/sync9_server');
 const http = require('http');
 const express = require('express');
 const port = 1200;
-const path = '/interoperability'
+const path = '/interoperability';
+const fs = require('fs');
 var backend = new Sync9Server(startServer);
 
 function startServer() {
   // Create a web server to serve files and listen to WebSocket connections
   var app = express();
   app.use(path, express.static('static'));
-  var server = http.createServer(app);
+  var server = http.createServer({
+    key: fs.readFileSync('/etc/letsencrypt/live/invisible.college/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/invisible.college/cert.pem'),
+
+  }, app);
   // Connect any incoming WebSocket connection to the server
   var wss = new WebSocket.Server({server: server});
   wss.on('connection', function(ws) {
@@ -19,6 +24,5 @@ function startServer() {
     backend.listen(stream);
   });
 
-  server.listen(port)
-  console.log(`Listening on http://localhost:${port}${path}:`);
+  server.listen(port, () => console.log(`Listening on http://localhost:${port}${path}:`));
 }

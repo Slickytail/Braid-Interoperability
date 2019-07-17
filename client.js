@@ -130,3 +130,6 @@ textarea.oninput = function() {
     var patches = pu.myers_to_patches(diff)
     client.onedit(patches);
 }
+// Export globals
+window.client = client;
+window.socket = socket;
