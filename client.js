@@ -96,7 +96,7 @@ global.sync = function(s) {
         textarea.style.backgroundColor = "hsl(120, 60%, 85%)";
         textarea.style.borderColor = "green";
     } else if (s === false) {
-        statusSpan.innerHTML = "Out of sync with server"
+        statusSpan.innerHTML = "Out of sync with server (if this persists, reload the page)"
         statusSpan.style.color = "red";
         textarea.style.backgroundColor = "hsl(0, 60%, 85%)";
         textarea.style.borderColor = "red";
