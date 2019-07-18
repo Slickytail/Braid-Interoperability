@@ -1,4 +1,4 @@
-# Universal Sync Protocol Interoperability Test
+# Braid Protocol Interoperability Test
 
 To install:
 
