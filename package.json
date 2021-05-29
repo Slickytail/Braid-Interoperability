@@ -15,7 +15,7 @@
     "ot-text": "^1.0.2",
     "ottypes": "^1.0.3",
     "sharedb": "^1.0.0-beta.23",
-    "ws": "^7.0.0"
+    "ws": "^7.4.6"
   },
   "repository": {
     "type": "git",
