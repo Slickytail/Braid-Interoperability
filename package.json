@@ -11,7 +11,7 @@
     "@teamwork/websocket-json-stream": "^2.0.0",
     "automerge": "^0.10.1",
     "clone": "^2.1.2",
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "ot-text": "^1.0.2",
     "ottypes": "^1.0.3",
     "sharedb": "^1.0.0-beta.23",
